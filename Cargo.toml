@@ -1,0 +1,29 @@
+[package]
+name = "attune-bench"
+version = "0.1.0"
+edition = "2021"
+description = "Quantitative benchmarks for attune algorithm advantages"
+license = "Apache-2.0"
+repository = "https://github.com/qiurui144/attune-bench"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+# Local path dep for development. CI / external users should switch to:
+#   attune-core = { git = "https://github.com/qiurui144/attune", branch = "develop" }
+attune-core = { path = "../attune/rust/crates/attune-core" }
+
+[[bench]]
+name = "token_savings"
+harness = false
+
+[[bench]]
+name = "encrypt_overhead"
+harness = false
+
+[[bench]]
+name = "retrieval_accuracy"
+harness = false
+
+[[bench]]
+name = "hdbscan_accuracy"
+harness = false

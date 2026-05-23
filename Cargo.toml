@@ -11,6 +11,9 @@ criterion = { version = "0.5", features = ["html_reports"] }
 # Local path dep for development. CI / external users should switch to:
 #   attune-core = { git = "https://github.com/qiurui144/attune", branch = "develop" }
 attune-core = { path = "../attune/rust/crates/attune-core" }
+# hdbscan_accuracy bench calls hdbscan crate directly (attune-core 用 Clusterer 包装
+# 但 Clusterer 需要 LLM 命名簇；bench 只测算法层 cluster quality).
+hdbscan = "0.11"
 
 [[bench]]
 name = "token_savings"

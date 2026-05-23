@@ -23,6 +23,22 @@ cargo bench --bench hdbscan_accuracy
 
 HTML reports land in `target/criterion/<bench>/report/index.html`.
 
+## v1.0.0 baseline data
+
+2026-05-23 跑出的算法基线见 [`docs/v1.0-baseline.md`](docs/v1.0-baseline.md)。
+
+主要数据点：
+
+| Claim | 实测值 | 来源 |
+|-------|--------|------|
+| 长文档 prompt 节省 ≥ 95% | 100 KB doc saved **96.9%** / 500 KB saved **99.4%** | token_savings |
+| 字段加密 overhead < 5% | 1 KB encrypt **1.4 µs** vs DB INSERT 1-5 ms = **< 0.1%** | encrypt_overhead |
+| Argon2id 抗暴力 ≥ 100 ms | **114.5 ms** | encrypt_overhead |
+| RRF 不 hurt BM25 baseline | Hit@10 + MRR 持平 | retrieval_accuracy |
+| HDBSCAN 聚类 ARI ≥ 0.5 | **0.5786** (8-d synthetic) | hdbscan_accuracy |
+
+环境：Intel i9-14900K / Ubuntu 24.04 / Rust 1.95.0 / attune-core SHA `d74b0ee`。
+
 ## Repo layout
 
 ```

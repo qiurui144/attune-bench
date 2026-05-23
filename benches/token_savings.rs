@@ -39,7 +39,11 @@ fn synthetic_doc(target_size: usize) -> String {
         }
         chapter += 1;
     }
-    s.truncate(target_size);
+    // 中英混排 → byte-truncate 可能撞 multi-byte 边界。
+    // 截到最近的 char boundary 而非精确 byte size。
+    while s.len() > target_size {
+        s.pop();
+    }
     s
 }
 

@@ -1,5 +1,7 @@
 # attune-bench
 
+[![Benchmark](https://github.com/qiurui144/attune-bench/actions/workflows/bench.yml/badge.svg)](https://github.com/qiurui144/attune-bench/actions/workflows/bench.yml)
+
 Quantitative benchmarks for **attune** algorithm advantages.
 
 Measures (vs naive baselines):
@@ -27,6 +29,11 @@ HTML reports land in `target/criterion/<bench>/report/index.html`.
 
 2026-05-23 跑出的算法基线见 [`docs/v1.0-baseline.md`](docs/v1.0-baseline.md)。
 
+criterion HTML 报告（本地交互式 flamechart + violin plot）持久化在
+[`docs/criterion-html-v1.0/report/index.html`](docs/criterion-html-v1.0/report/index.html)（checkout 后用浏览器打开）。
+
+CI 每次运行也会上传 `criterion-report-<sha>` artifact（Actions → workflow run → Artifacts）。
+
 主要数据点：
 
 | Claim | 实测值 | 来源 |
@@ -39,6 +46,14 @@ HTML reports land in `target/criterion/<bench>/report/index.html`.
 
 环境：Intel i9-14900K / Ubuntu 24.04 / Rust 1.95.0 / attune-core SHA `d74b0ee`。
 
+## Historical trend tracking
+
+criterion 本身不跨 run 做 trend graph。推荐工作流：
+
+1. 每次跑完把 `docs/criterion-html-v1.0/` 更新 commit（带版本标签，如 `docs/criterion-html-v1.1/`）
+2. 关键指标变化手动记录在 `docs/v1.0-baseline.md`（追加新版本节）
+3. 更结构化需求可接入 [bencher.dev](https://bencher.dev) 或 [github-action-benchmark](https://github.com/benchmark-action/github-action-benchmark)（当前不强依赖）
+
 ## Repo layout
 
 ```
@@ -48,6 +63,9 @@ attune-bench/
 │   ├── encrypt_overhead.rs
 │   ├── retrieval_accuracy.rs
 │   └── hdbscan_accuracy.rs
+├── docs/
+│   ├── v1.0-baseline.md         # quantitative baseline 文字数据
+│   └── criterion-html-v1.0/     # criterion HTML 交互报告（v1.0 snapshot）
 └── Cargo.toml      # criterion harness + attune-core path dep
 ```
 

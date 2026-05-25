@@ -14,7 +14,12 @@ attune-core = { path = "/data/company/project/attune/rust/crates/attune-core" }
 # hdbscan_accuracy bench calls hdbscan crate directly (attune-core 用 Clusterer 包装
 # 但 Clusterer 需要 LLM 命名簇；bench 只测算法层 cluster quality).
 hdbscan = "0.11"
+# v1.1 新 bench 引入：plugin_install.rs YAML parse + SHA-256
+serde = { version = "1", features = ["derive"] }
+serde_yaml = "0.9"
+sha2 = "0.10"
 
+# === v1.0 base bench (#131) ===
 [[bench]]
 name = "token_savings"
 harness = false
@@ -29,4 +34,21 @@ harness = false
 
 [[bench]]
 name = "hdbscan_accuracy"
+harness = false
+
+# === v1.1 新增 bench (#144) ===
+[[bench]]
+name = "agent_dispatch"
+harness = false
+
+[[bench]]
+name = "vault_unlock"
+harness = false
+
+[[bench]]
+name = "chat_e2e"
+harness = false
+
+[[bench]]
+name = "plugin_install"
 harness = false
